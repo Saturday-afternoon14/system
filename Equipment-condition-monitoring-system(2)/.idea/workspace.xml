@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fbc0b5f8-ae69-470a-b35b-4036b74be06e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/Equipment-condition-monitoring-system.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vs/Equipment-condition-monitoring-system/FileContentIndex/38f0eae3-9ea3-4e16-bd92-115b74b4c816.vsidx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vs/Equipment-condition-monitoring-system/FileContentIndex/8e9ebf84-c176-40a4-9535-4491a856ab51.vsidx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vs/Equipment-condition-monitoring-system/FileContentIndex/9ff63577-a1fb-47dd-a94e-ac41c3a9172b.vsidx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vs/Equipment-condition-monitoring-system/FileContentIndex/bec5341c-41d7-47ba-99df-905b8aed3211.vsidx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vs/Equipment-condition-monitoring-system/FileContentIndex/d5fed101-7911-4ff5-9dd6-21aa88448ef8.vsidx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vs/Equipment-condition-monitoring-system/config/applicationhost.config" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vs/VSWorkspaceState.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/testSimpleServer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/前端/HOME.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/前端/link.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/客户端/predict_1.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/客户端/predict_2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/RandomXlsReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/RandomXlsReader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/SimpleServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/SimpleServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/connectDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/connectDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/textTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/textTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/RandomXlsReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/RandomXlsReader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/SimpleServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/SimpleServer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/example/connectDatabase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/example/connectDatabase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/testSimpleClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/testSimpleServer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/textTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/前端/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/前端/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/前端/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/前端/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/前端/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/前端/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/前端/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/前端/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/前端/.idea/前端.iml" beforeDir="false" afterPath="$PROJECT_DIR$/前端/.idea/前端.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/前端/css/monitor.css" beforeDir="false" afterPath="$PROJECT_DIR$/前端/css/monitor.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/前端/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/前端/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/前端/js/dao.js" beforeDir="false" afterPath="$PROJECT_DIR$/前端/js/dao.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/前端/js/jquery.count.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/前端/js/jquery.count.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/前端/js/jquery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/前端/js/jquery.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/前端/js/monitor.js" beforeDir="false" afterPath="$PROJECT_DIR$/前端/js/monitor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/前端/node_modules/.bin/mime.cmd" beforeDir="false" afterPath="$PROJECT_DIR$/前端/node_modules/.bin/mime.cmd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/前端/node_modules/.package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/前端/node_modules/.package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/前端/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/前端/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/前端/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/前端/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/前端/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/前端/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/客户端/import socket.py" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/target/classes/org/example/RandomXlsReader.class" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/target/classes/org/example/SimpleServer.class" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2hOOYTESMGy0jODIAYhm96TG0er" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Application.SimpleServer.executor&quot;: &quot;Run&quot;,
+    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
+    &quot;Node.js.server.js.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.sever2.js.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/xmgl/Equipment-condition-monitoring-system&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2024.1\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xmgl\Equipment-condition-monitoring-system\前端" />
+      <recent name="C:\xmgl\Equipment-condition-monitoring-system\前端\node_modules" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xmgl\Equipment-condition-monitoring-system\前端" />
+      <recent name="C:\xmgl\Equipment-condition-monitoring-system\前端\node_modules" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Node.js.sever2.js">
+    <configuration name="SimpleServer" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.example.SimpleServer" />
+      <module name="Server" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="server.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/前端/server.js" working-dir="$PROJECT_DIR$/前端">
+      <method v="2" />
+    </configuration>
+    <configuration name="sever2.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/前端/sever2.js" working-dir="$PROJECT_DIR$/前端">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.sever2.js" />
+        <item itemvalue="Node.js.server.js" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fbc0b5f8-ae69-470a-b35b-4036b74be06e" name="Changes" comment="" />
+      <created>1717461705673</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1717461705673</updated>
+      <workItem from="1717482779259" duration="9976000" />
+      <workItem from="1717595555497" duration="143000" />
+      <workItem from="1718018386654" duration="3194000" />
+      <workItem from="1718021672548" duration="428000" />
+      <workItem from="1718022562261" duration="663000" />
+      <workItem from="1718065829081" duration="4763000" />
+      <workItem from="1718072126965" duration="96000" />
+      <workItem from="1718072306266" duration="263000" />
+      <workItem from="1718072801368" duration="2414000" />
+      <workItem from="1718086668163" duration="10267000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+</project>

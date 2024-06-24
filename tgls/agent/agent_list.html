@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../css/base.css">
+	<link rel="stylesheet" href="../../layui/css/layui.css">
+	<link rel="stylesheet" href="css/monitor.css">
+	<script src="../../framework/jquery-1.11.3.min.js"></script>
+	<script src="../../layui/layui.js"></script>
+	<script src="../../framework/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="js/monitor.js"></script>
+	<title>主页</title>
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			overflow: hidden; /* 防止出现外层滚动条 */
+		}
+
+		.cBody {
+			height: 100%;
+			padding: 10px;
+			display: block;
+			overflow-y: auto;
+			position: absolute; /* 或 fixed，根据你的布局需求 */
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #06182D; /* 调整的颜色 */
+		}
+	</style>
+</head>
+
+<body>
+	<div class="cBody">
+		<div class="console">
+			<button type="button" class="layui-btn" onclick="showModal()">添加</button>
+			<table class="layui-table">
+				<thead>
+					<tr>
+						<th>机器码</th>
+						<th>地址</th>
+						<th>管理员</th>
+						<th>状态</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>001</td>
+						<td>扬州大学</td>
+						<td>admin</td>
+						<td>启用</td>
+
+						<td>
+						<button type="button" class="layui-btn layui-btn-xs"
+							onclick="window.open('前端/index.html', '_blank')">基本信息</button>
+							<button class="layui-btn layui-btn-xs">删除</button>
+							<!-- <button onclick="window.location.href='../index.html'" type="button" id="add">新增</button> -->
+						</td>
+					</tr>
+			</table>
+			<!-- 添加商品模态框 -->
+			<div id="myModal" style="display:none;">
+				<button onclick="closeModal()">×</button>
+				<form id="addForm" class="layui-form">
+					<div class="layui-form-item">
+						<label class="layui-form-label">机器码</label>
+						<div class="layui-input-block">
+							<input type="text" name="goodsName" required lay-verify="required" autocomplete="off"
+								class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">地址</label>
+						<div class="layui-input-block">
+							<input type="text" name="goodmodel" required lay-verify="required" autocomplete="off"
+								class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<label class="layui-form-label">管理员</label>
+						<div class="layui-input-block">
+							<textarea name="desc" class="layui-textarea"></textarea>
+						</div>
+					</div>
+					<!-- <div class="layui-form-item">
+						<label class="layui-form-label">图片</label>
+						<div class="layui-input-block">
+							<input type="file" id="goodsPic">
+							<div id="fileNameDisplay"></div>
+						</div>
+					</div> -->
+					<div class="layui-form-item">
+						<label class="layui-form-label">状态</label>
+						<div class="layui-input-block">
+							<input type="radio" name="sex" value="启用" title="启用">
+							<input type="radio" name="sex" value="禁用" title="禁用" checked>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button class="layui-btn" lay-submit lay-filter="submitBut">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		
+		function showModal() {
+				document.getElementById('myModal').style.display = 'block';
+			}
+
+			function closeModal() {
+				document.getElementById('myModal').style.display = 'none';
+			}
+
+			document.addEventListener('DOMContentLoaded', function () {
+				layui.use('form', function () {
+					var form2 = layui.form;
+
+					// 表单提交事件处理
+					form2.on('submit(submitBut)', function (data) {
+						event.preventDefault();
+						// 修改这里，移除 fileName，添加 url
+						var formDataObject2 = {
+							goodsName: data.field.goodsName,
+							goodmodel: data.field.goodmodel,
+							url: data.field.desc, // 假设文本区域的name属性是'desc'
+							status: data.field.sex
+						};
+
+						var formDataArray2 = getFormDataArray();
+						formDataArray2.push(formDataObject2);
+						saveFormDataArray(formDataArray2);
+
+						updateTable(formDataObject2);
+
+						// 清空表单
+						document.getElementById('addForm').reset();
+						closeModal();
+						return false;
+					});
+
+					// 初始化表格数据
+					initTable();
+
+				// 删除按钮点击事件委托
+				document.querySelector('.layui-table').addEventListener('click', function (e) {
+					if (e.target.classList.contains('delete-btn')) {
+						e.preventDefault();
+						var row = e.target.closest('tr');
+						if (row) {
+							var index = row.getAttribute('data-row-index');
+							if (index !== null) {
+								var formDataArray2 = getFormDataArray();
+								formDataArray2.splice(index, 1);
+								saveFormDataArray(formDataArray2);
+
+								row.remove();
+							}
+						}
+					}
+				});
+			});
+		});
+
+		// 从localStorage获取数据数组
+		function getFormDataArray() {
+			return JSON.parse(localStorage.getItem('formDataArray2') || '[]');
+		}
+
+		// 保存数据数组到localStorage
+		function saveFormDataArray(array) {
+			localStorage.setItem('formDataArray2', JSON.stringify(array));
+		}
+
+		// 初始化表格，从localStorage加载数据并渲染
+		function initTable() {
+			var formDataArray2 = getFormDataArray();
+			formDataArray2.forEach(function (item, index) {
+				var newRow = `
+                    <tr data-row-index="${index}">
+                        <td>${item.goodsName || ''}</td>
+                        <td>${item.goodmodel || ''}</td>
+                        <td>${item.url || ''}</td>
+                        <td>${item.status || '禁用'}</td>
+                        <td>
+                           	<button type="button" class="layui-btn layui-btn-xs" 
+    onclick="window.open('tgls/前端/index.html', '_blank')">基本信息</button>
+                            <button type="button" class="layui-btn layui-btn-xs layui-btn-danger delete-btn">删除</button>
+                        </td>
+                    </tr>
+                `;
+				document.querySelector('.layui-table tbody').insertAdjacentHTML('beforeend', newRow);
+			});
+		}
+
+		// 更新表格，用于表单提交后直接插入新数据
+		function updateTable(formDataObject2) {
+			var tbody = document.querySelector('.layui-table tbody');
+			var newRow = `
+                <tr data-row-index="${getFormDataArray().length - 1}">
+                    <td>${formDataObject2.goodsName || ''}</td>
+                    <td>${formDataObject2.goodmodel || ''}</td>
+                    <td>${formDataObject2.url || ''}</td>
+                    <td>${formDataObject2.status || '禁用'}</td>
+                    <td>
+                      	<button type="button" class="layui-btn layui-btn-xs" 
+    onclick="window.open('tgls/前端/index.html', '_blank')">基本信息</button>
+                        <button type="button" class="layui-btn layui-btn-xs layui-btn-danger delete-btn">删除</button>
+                    </td>
+                </tr>
+            `;
+			tbody.insertAdjacentHTML('beforeend', newRow);
+		}
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>主页</title>
+    <!-- 引入Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            padding-top: 70px; /* Adjust for navbar */
+        }
+        .custom-select {
+            width: 200px; /* Adjust width of the select dropdown */
+        }
+        .jump-btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .jump-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <a class="navbar-brand" href="#">设备状态检测系统</a>
+</nav>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-5">基于振动，音频的设备状态检测系统</h1>
+    <div class="d-flex justify-content-center">
+        <label for="startMonth" class="mr-3">机器码:</label>
+        <select id="startMonth" name="startMonth" class="custom-select">
+            <option value="001">001</option>
+            <option value="002">002</option>
+            <option value="003">添加机器</option>
+        </select>
+    </div>
+    <button type="button" class="jump-btn mt-3" onclick="goToIndex()">跳转</button>
+</div>
+
+<script>
+    function goToIndex() {
+        localStorage.setItem('selectedMachineCode', document.getElementById('startMonth').value);
+        window.location.href = 'index.html';
+    }
+</script>
+
+<!-- Optional JavaScript, choose one of the following to enable Bootstrap's JS features -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

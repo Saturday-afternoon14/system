@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="../../css/base.css">
+	<link rel="stylesheet" href="../../layui/css/layui.css">
+	<link rel="stylesheet" href="css/monitor.css">
+	<script src="../../framework/jquery-1.11.3.min.js"></script>
+	<script src="../../layui/layui.js"></script>
+	<script src="../../framework/jquery.mCustomScrollbar.concat.min.js"></script>
+	<script src="js/monitor.js"></script>
+	<title>主页</title>
+	<style>
+		html, body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
+			overflow: hidden; /* 防止出现外层滚动条 */
+		}
+		/* 在现有CSS样式中添加 */
+		.highlighted-row {
+			background-color: lightgreen; /* 或您喜欢的绿色 */
+		}
+		.highlight-green {
+			background-color: #DFF0D8; /* 这是一个浅绿色的背景色，你可以根据需要调整 */
+			color: #000; /* 文字颜色，确保对比度足够 */
+		}
+
+		/* 如果需要，也可以为内部的输入框等元素添加额外样式 */
+		.highlight-green .layui-input {
+			border-color: #28a745; /* 边框颜色，这里假设你希望边框也是绿色系 */
+			box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 6px rgba(40, 167, 69, 0.5); /* 输入框阴影效果，增强高亮感觉 */
+		}
+		.detail-modal {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: blue;
+			border: 2px solid green;
+			padding: 20px;
+			text-align: left;
+			width: 400px;
+			z-index: 1000;
+		}
+
+		.modal-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.modal-header button {
+			margin-top: -5px; /* 微调按钮位置 */
+		}
+
+		.cBody {
+			height: 100%;
+			padding: 10px;
+			display: block;
+			overflow-y: auto;
+			position: absolute; /* 或 fixed，根据你的布局需求 */
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background-color: #06182D; /* 调整的颜色 */
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="cBody">
+		<div class="console">
+			<button type="button" class="layui-btn" onclick="showModal()">添加</button>
+			<table class="layui-table">
+				<thead>
+					<tr>
+						<th>联系方式</th>
+						<th>数据描述</th>
+						<th>数据文件</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr data-row-index="0">>
+						<td>18013193669</td>
+						<td>[传感器数据,传感器类型，采样率，滤波算法等描述]</td>
+						<td>XXX.xls(xlsx)</td>
+				
+						<td>
+							<button type="button" class="layui-btn layui-btn-xs check-button" >查看</button>
+							<button class="layui-btn layui-btn-xs">删除</button>
+						</td>
+					</tr>
+			</table>
+
+			<!-- 添加商品模态框 -->
+			<div id="myModal" style="display:none;">
+				<button onclick="closeModal()">×</button>
+				<form id="addForm" class="layui-form">
+					<div class="layui-form-item highlight-green">
+						<label class="layui-form-label" >联系方式</label>
+						<div class="layui-input-block">
+							<input type="text" name="goodsName" id="contactInput" required lay-verify="required" autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item highlight-green">
+						<label class="layui-form-label">数据描述</label>
+						<div class="layui-input-block">
+							<input type="text" name="goodmodel" required lay-verify="required" autocomplete="off"
+								class="layui-input">
+						</div>
+					</div>
+					<div class="layui-form-item highlight-green">
+						<label class="layui-form-label">数据文件</label>
+						<div class="layui-input-block">
+							<input type="file" id="fileUpload" accept=".csv, .xls, .xlsx"> <!-- 可以限制可接受的文件类型 -->
+							<div id="fileNameDisplay"></div>
+						</div>
+					</div>
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+<!--							<button type="button" onclick="uploadFile()">上传文件</button> &lt;!&ndash; 假设有一个按钮来触发上传操作 &ndash;&gt;-->
+							<button class="layui-btn" lay-submit lay-filter="submitBut" onclick="uploadFile()">立即提交</button>
+							<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- ...（之前的代码保持不变） -->
+	<script>
+		// 假设你有一个方法来获取所有需要检查的文件名列表
+		function getFileNamesFromTable() {
+			var rows = document.querySelectorAll('.layui-table tbody tr');
+			return Array.from(rows).map(row => {
+				var fileNameElement = row.querySelector('td:first-child');
+				var allCells = row.querySelectorAll('td'); // 获取所有单元格
+				var textElement = allCells.length > 2 ? allCells[2] : null; // 确保至少有三个单元格才访问第三个
+				return (fileNameElement.textContent || '') + (textElement.textContent || ''); // 假设文件名在最后一列
+			});
+		}
+		function findMatchingRow(criteriaFirstColumn) {
+			var tableBody = document.querySelector('.layui-table tbody');
+			var rows = tableBody.querySelectorAll('tr'); // 获取所有行
+			var matchingRow = null; // 初始化匹配行变量
+			// 遍历所有行
+			for (var i = 0; i < rows.length; i++) {
+				var cells = rows[i].querySelectorAll('td'); // 获取当前行的所有单元格
+
+				// 确保当前行至少有三个单元格，以防越界错误
+				if (cells.length >= 3) {
+					var firstColumnText = cells[0].textContent.trim(); // 第一列内容
+					var thirdColumnText = cells[2].textContent.trim(); // 第三列内容
+					var temp =firstColumnText+thirdColumnText;
+					// 检查当前行的第一列和第三列内容是否与给定条件匹配
+					if (criteriaFirstColumn === temp) {
+						matchingRow = rows[i]; // 找到了匹配行
+						break; // 停止循环
+					}
+				}
+			}
+			return matchingRow; // 返回找到的匹配行，如果没有找到则返回null
+		}
+		// 检查文件并更新行状态
+		async function checkFilesAndColorRows() {
+			var fileNames = getFileNamesFromTable();
+			// console.log(fileNames);
+			for (let fileName of fileNames) {
+				try {
+					// 这里假设/checkFile是你的API路径
+					const response = await fetch(`http://localhost:40000/checkFile?filename=${encodeURIComponent('Y'+fileName)}`);
+					if (response.ok) {
+						var matchedRow = findMatchingRow(fileName);
+						if (matchedRow) {
+							matchedRow.classList.add('highlighted-row'); // 自定义的CSS类，用于高亮显示
+						}
+					}
+				} catch (error) {
+					console.error(`Error checking file: ${fileName}`, error);
+				}
+			}
+
+		}
+
+		// 每隔1秒执行一次检查
+		setInterval(checkFilesAndColorRows, 1000);
+
+		// CSS样式
+	</script>
+<script>
+	function downloadFile(fileName) {
+		// 这里的URL需要替换为实际的后端下载文件的API地址
+		var downloadUrl = `http://localhost:40000/download?filename=${encodeURIComponent('Y'+fileName)}`;
+		console.log(fileName);
+		window.location.href = downloadUrl;
+	}
+	function Shuaxin()
+	{
+		var row = this.closest('tr');
+		if (row) {
+			var index = row.getAttribute('data-row-index');
+			console.log(index);
+			if (index !== null) {
+				showDetail(index);
+			}
+		}
+	}
+	function shuaxin()
+	{
+		console.log("clear");
+		document.querySelectorAll('.check-button').forEach(button => {
+			button.addEventListener('click', function() {
+				var row = this.closest('tr');
+				if (row) {
+					var index = row.getAttribute('data-row-index');
+					console.log(index);
+					if (index !== null) {
+						showDetail(index);
+					}
+				}
+			});
+		});
+	}
+	async function uploadFile() {
+		const input = document.getElementById('fileUpload');
+		const file = input.files[0];
+		const contact = document.getElementById('contactInput').value; // 获取联系方式
+		console.log(contact);
+
+		if (!file) {
+			alert('请先选择一个文件！');
+			return;
+		}
+
+		try {
+			// 创建FormData对象
+			const formData = new FormData();
+			formData.append('file', file, contact+file.name); // 添加文件
+			const response = await fetch('http://localhost:40000/upload', {
+				method: 'POST',
+				body: formData
+			});
+
+			if (!response.ok) {
+				throw new Error(`文件上传失败，状态码：${response.status}`);
+			}
+
+			const data = await response.json(); // 假设服务器返回JSON格式的响应
+			console.log('文件上传成功', data);
+		} catch (error) {
+			console.error('文件上传时发生错误:', error);
+			alert('文件上传失败，请重试！');
+		}
+	}
+</script>
+	<style>
+		.detail-modal {
+			position: fixed;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			background-color: navajowhite;
+			border: 6px solid green;
+			padding: 20px;
+			text-align: left;
+			width: 400px;
+			z-index: 1000;
+		}
+
+		.modal-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.modal-header button {
+			margin-top: -5px; /* 微调按钮位置 */
+		}
+	</style>
+	<!-- 查看详情窗口 -->
+	<div id="detailModal" class="detail-modal" style="display: none;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h3>详细信息</h3>
+				<button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onclick="closeDetailModal()">
+
+				</button>
+			</div>
+			<div class="modal-body">
+				<p id="detailContact">联系方式: [数据]</p>
+				<p id="detailDesc">数据描述: [数据]</p>
+				<p id="detailFile">数据文件: [数据]</p>
+				<!-- 添加下载按钮 -->
+				<button type="button" class="layui-btn layui-btn-normal" onclick="downloadFile()">下载文件</button>
+				<br>
+			</div>
+		</div>
+	</div>
+	<script>
+		  var globalFileName = '';
+
+			document.getElementById('fileUpload').addEventListener('change', function (e) {
+				var file = e.target.files[0];
+				globalFileName = file.name;
+				document.getElementById('fileNameDisplay').innerText = file.name || '';
+			});
+
+			function showModal() {
+				document.getElementById('myModal').style.display = 'block';
+			}
+
+			function closeModal() {
+				document.getElementById('myModal').style.display = 'none';
+			}
+
+			document.addEventListener('DOMContentLoaded', function () {
+				layui.use('form', function () {
+					var form = layui.form;
+					form.on('submit(submitBut)', function (data) {
+						event.preventDefault();
+						var formDataObject = {
+							goodsName: data.field.goodsName,
+							goodmodel: data.field.goodmodel,
+							fileName: globalFileName,
+							status: data.field.sex
+						};
+
+						var formDataArray = getFormDataArray();
+						formDataArray.push(formDataObject);
+						saveFormDataArray(formDataArray);
+						updateTable(formDataObject);
+						document.getElementById('addForm').reset();
+						document.getElementById('fileNameDisplay').innerText = '';
+						closeModal();
+						return false;
+					});
+					initTable();
+
+					// 删除按钮点击事件委托
+					document.querySelector('.layui-table').addEventListener('click', function (e) {
+						if (e.target.classList.contains('delete-btn')) {
+							e.preventDefault();
+							var row = e.target.closest('tr');
+							if (row) {
+								var index = row.getAttribute('data-row-index');
+								if (index !== null) {
+									var formDataArray = getFormDataArray();
+									formDataArray.splice(index, 1);
+									saveFormDataArray(formDataArray);
+
+									row.remove();
+								}
+							}
+						}
+					});
+				});
+			});
+			function getFormDataArray() {
+				return JSON.parse(localStorage.getItem('formDataArray') || '[]');
+			}
+			function saveFormDataArray(array) {
+				localStorage.setItem('formDataArray', JSON.stringify(array));
+			}
+			function initTable() {
+				var formDataArray = getFormDataArray();
+				formDataArray.forEach(function (item, index) {
+					var newRow = `
+                    <tr data-row-index="${index}">
+                        <td>${item.goodsName || ''}</td>
+                        <td>${item.goodmodel || ''}</td>
+                        <td>${item.fileName || ''}</td>
+                        <td>
+                           	<button type="button" class="layui-btn layui-btn-xs check-button" onclick="Shuaxin()">查看</button>
+                            <button type="button" class="layui-btn layui-btn-xs layui-btn-danger delete-btn">删除</button>
+                        </td>
+                    </tr>
+                `;
+					document.querySelector('.layui-table tbody').insertAdjacentHTML('beforeend', newRow);
+				});
+				shuaxin();
+			}
+
+			// 更新表格，用于表单提交后直接插入新数据
+			function updateTable(formDataObject) {
+				var tbody = document.querySelector('.layui-table tbody');
+				var newRow = `
+                <tr data-row-index="${getFormDataArray().length - 1}">
+                    <td>${formDataObject.goodsName || ''}</td>
+                    <td>${formDataObject.goodmodel || ''}</td>
+                    <td>${formDataObject.fileName || ''}</td>
+                    <td>
+                      	<button type="button" class="layui-btn layui-btn-xs check-button" onclick="Shuaxin()">查看</button>
+                        <button type="button" class="layui-btn layui-btn-xs layui-btn-danger delete-btn">删除</button>
+                    </td>
+                </tr>
+            `;
+				tbody.insertAdjacentHTML('beforeend', newRow);
+				shuaxin();
+			}
+	</script>
+	<script>
+		function showDetail(rowIndex) {
+			console.log(123);
+			var formDataArray = getFormDataArray();
+			var rowData = formDataArray[rowIndex];
+			console.log(formDataArray);
+			document.getElementById('detailContact').innerText = `联系方式: ${rowData.goodsName || ''}`;
+			document.getElementById('detailDesc').innerText = `数据描述: ${rowData.goodmodel || ''}`;
+			document.getElementById('detailFile').innerText = `数据文件: ${rowData.fileName || ''}`;
+			var downloadButton = document.querySelector('#detailModal .modal-body button[onclick]');
+			downloadButton.setAttribute('onclick', `downloadFile('${rowData.goodsName}+${rowData.fileName}')`);
+			downloadButton.onclick = function() {
+				downloadFile(rowData.goodsName+rowData.fileName);
+			};
+
+			document.getElementById('detailModal').style.display = 'block';
+		}
+		function closeDetailModal() {
+			console.log(123);
+			document.getElementById('detailModal').style.display = 'none';
+		}
+	</script>
+</body>
+</html>

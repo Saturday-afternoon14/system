@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>登录界面</title>
+</head>
+<body class="full-blue-background">
+<header class="t_header">
+    <span></span>
+</header>
+<div class="gradient-text-container">
+    <div class="gradient-text">
+        基于音频振动的工业设备健康状态检测系统
+    </div>
+</div>
+<div class="login-container">
+    <h2>登录</h2>
+    <form id="login-form">
+        <div class="input-group">
+            <label for="username">账号:</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="input-group">
+            <label for="password">密码:</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">登录</button>
+        <p id="error-message" style="color: red; display: none;">账号或密码错误！</p>
+    </form>
+    <p>还没有账号？<a href="register.html">去注册</a></p>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

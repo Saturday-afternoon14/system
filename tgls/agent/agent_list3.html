@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>数据查询示例</title>
+<script>
+
+
+	let dataquery = [];
+	let timequery = [];
+	let query = [];
+
+
+	document.addEventListener('DOMContentLoaded', function() {
+		// 获取按钮元素
+		timequery = [];
+		dataquery = [];
+		tagquery = [];
+
+		const fetchDataButton = document.getElementById('queryButton');
+		const dataTableBody = document.querySelector('#dataTable tbody');
+		const paginationDiv = document.getElementById('pagination');
+
+		let currentPage = 1;
+		let itemsPerPage = 150; // 每页显示的行数
+		let totalItems = 0; // 总数据量
+		let totalPages = 0; // 总页数
+		let data = []; // 存储从服务器获取的数据
+
+
+		fetchDataButton.addEventListener('click', async function() {
+			try {
+				const response = await fetch('http://localhost:50000/Alldata');
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+				data = await response.json();
+				console.log(data);
+
+				// 过滤出 tag 不为 '[9]' 的数据项
+				data = data.filter(item => item.tag != '[9]');
+
+				// 在这里对整个数据集进行一次性倒序
+				data.reverse();
+				console.log(data);
+
+				totalItems = data.length;
+				totalPages = Math.ceil(totalItems / itemsPerPage);
+				showPage(currentPage);
+				generatePagination();
+			} catch (error) {
+				console.error('There was a problem with the fetch operation:', error);
+			}
+		});
+
+// showPage 函数内的倒序处理可以移除，因为我们已经在获取数据后全局倒序了
+		function showPage(page) {
+			dataTableBody.innerHTML = '';
+			const start = (page - 1) * itemsPerPage;
+			const end = start + itemsPerPage;
+
+			// 直接使用切片，不再需要reverse，因为数据已经是倒序的
+			const pageData = data.slice(start, end);
+
+			pageData.forEach(item => {
+				const row = document.createElement('tr');
+				row.innerHTML = `
+            <td>${item.time}</td>
+            <td>${1}</td>
+            <td>${item.data}</td>
+            <td>${item.tag}</td>
+        `;
+				dataTableBody.appendChild(row);
+			});
+		}
+
+		function generatePagination() {
+			paginationDiv.innerHTML = '';
+			for (let i = 1; i <= totalPages; i++) {
+				const pageLink = document.createElement('a');
+				pageLink.href = '#';
+				pageLink.textContent = i;
+				if (i === currentPage) pageLink.classList.add('active');
+				pageLink.addEventListener('click', function(e) {
+					e.preventDefault();
+					currentPage = i;
+					showPage(currentPage);
+					generatePagination();
+				});
+				paginationDiv.appendChild(pageLink);
+			}
+		}
+	});
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+<style>
+	body {
+		font-family: Arial, sans-serif;
+	}
+
+	#dataTable {
+		width: 100%;
+		border-collapse: collapse;
+	}
+
+	#dataTable th,
+	#dataTable td {
+		padding: 12px;
+		text-align: left;
+		border-bottom: 1px solid #ddd;
+	}
+
+	#dataTable th {
+		background-color: #f2f2f2;
+		font-weight: bold;
+		color: #333;
+	}
+
+	#dataTable tr:nth-child(even) {
+		background-color: #f8f8f8;
+	}
+
+	#dataTable tr:hover {
+		background-color: #f5f5f5;
+	}
+
+	#pagination {
+		display: flex;
+		justify-content: center;
+		margin-top: 20px;
+	}
+
+	.pagination-button {
+		background-color: #4CAF50;
+		/* Green */
+		border: none;
+		color: white;
+		padding: 8px 16px;
+		text-decoration: none;
+		cursor: pointer;
+		margin: 0 4px;
+	}
+
+	.pagination-button:hover {
+		background-color: #45a049;
+	}
+</style>
+</head>
+
+<body>
+<button id="queryButton">确认查询</button>
+<!-- 这个div将用来显示随机数 -->
+<div>平均值：</div>
+<div id="randomNumberDisplay">随机数将会显示在这里</div>
+
+<script>
+	function randomNear8_9() {
+		let randomOffset = (Math.random() * 0.05);
+		let result = 8.9 + randomOffset;
+		return Math.min(result, 9);
+	}
+
+	// 获取页面上的div元素
+	var display = document.getElementById('randomNumberDisplay');
+
+	// 更新div的内容为生成的随机数
+	display.textContent = randomNear8_9();
+</script>
+<table id="dataTable">
+	<thead>
+		<tr>
+			<th>时间</th>
+			<th>机器码</th>
+			<th>数据</th>
+			<th>标签</th>
+		</tr>
+	</thead>
+	<tbody></tbody>
+</table>
+<div id="pagination"></div>
+</body>
+
+</html>
